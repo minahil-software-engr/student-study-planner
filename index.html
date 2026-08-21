@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Study Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <h1>🎓 Student Study Planner</h1>
+      <div class="header-controls">
+        <span class="badge" id="para-count-badge">Paragraphs: 0</span>
+        <button id="reading-mode-btn" class="btn btn-secondary">Enable Reading Mode</button>
+      </div>
+    </header>
+
+    <!-- Student Welcome Section -->
+    <section class="welcome-card" id="welcome-section">
+      <div id="welcome-input-container">
+        <h2>Welcome! Enter Your Name</h2>
+        <div class="input-group">
+          <input type="text" id="student-name-input" placeholder="e.g., Ahmed" />
+          <button id="continue-btn" class="btn btn-primary">Continue</button>
+        </div>
+        <p id="welcome-error" class="error-msg"></p>
+      </div>
+      
+      <div id="welcome-banner" class="hidden">
+        <h2 id="welcome-message"></h2>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav">
+      <button class="tab-btn active" data-tab="my-tasks-tab">My Tasks</button>
+      <button class="tab-btn" data-tab="study-tips-tab">Study Tips</button>
+      <button class="tab-btn" data-tab="about-planner-tab">About Planner</button>
+    </nav>
+
+    <!-- TAB 1: My Tasks -->
+    <section id="my-tasks-tab" class="tab-content active">
+      <!-- Task Form -->
+      <div class="card">
+        <h3 id="form-title">Add New Study Task</h3>
+        <form id="task-form">
+          <div class="form-group">
+            <label for="task-title">Task Title</label>
+            <input type="text" id="task-title" placeholder="e.g., Read Chapter 3" />
+          </div>
+          <div class="form-group">
+            <label for="task-subject">Subject Name</label>
+            <input type="text" id="task-subject" placeholder="e.g., Computer Networks" />
+          </div>
+          <p id="task-error" class="error-msg"></p>
+          <div class="form-actions">
+            <button type="submit" id="save-task-btn" class="btn btn-primary">Save Task</button>
+            <button type="button" id="cancel-edit-btn" class="btn btn-secondary hidden">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Task Filters -->
+      <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">All Tasks</button>
+        <button class="filter-btn" data-filter="pending">Pending Tasks</button>
+        <button class="filter-btn" data-filter="completed">Completed Tasks</button>
+      </div>
+
+      <!-- Task List Container -->
+      <div id="task-list" class="task-list">
+        <!-- Tasks will be rendered dynamically here -->
+      </div>
+    </section>
+
+    <!-- TAB 2: Study Tips -->
+    <section id="study-tips-tab" class="tab-content">
+      <div class="card info-card">
+        <h3>Effective Study Strategies</h3>
+        <p>Managing time effectively is crucial for university success. Break down your large assignments into smaller, manageable chunks to avoid feel overwhelmed.</p>
+        <p>Use active recall and spaced repetition when preparing for exams. Testing yourself on key concepts helps retain information much better than passive reading.</p>
+        <p>Maintain a clean and distraction-free study workspace. Taking structured short breaks using techniques like Pomodoro can keep your focus sharp during long sessions.</p>
+      </div>
+    </section>
+
+    <!-- TAB 3: About Planner -->
+    <section id="about-planner-tab" class="tab-content">
+      <div class="card info-card">
+        <h3>About Student Study Planner</h3>
+        <p>This Study Planner web application is designed specifically for students to manage coursework, exam preparations, and personal goals effortlessly.</p>
+        <p>It provides task tracking, status filtering, local browser data persistence, and dedicated reading utilities to enhance your study routine.</p>
+        <p>Built cleanly using core web technologies: HTML5, CSS3, and modern Vanilla JavaScript.</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
