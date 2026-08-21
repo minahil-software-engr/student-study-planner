@@ -1,14 +1,11 @@
-// LocalStorage Keys
 const STORAGE_KEY_TASKS = 'student_planner_tasks';
 const STORAGE_KEY_USER = 'student_planner_user';
 
-// State Variables
 let tasks = [];
 let currentFilter = 'all';
 let editingTaskId = null;
 let isReadingMode = false;
 
-// DOM Elements
 const studentNameInput = document.getElementById('student-name-input');
 const continueBtn = document.getElementById('continue-btn');
 const welcomeInputContainer = document.getElementById('welcome-input-container');
@@ -32,7 +29,6 @@ const filterButtons = document.querySelectorAll('.filter-btn');
 const paraCountBadge = document.getElementById('para-count-badge');
 const readingModeBtn = document.getElementById('reading-mode-btn');
 
-// --- Initialization ---
 document.addEventListener('DOMContentLoaded', () => {
   loadUserData();
   loadTasksData();
@@ -40,30 +36,20 @@ document.addEventListener('DOMContentLoaded', () => {
   updateParagraphCount();
 });
 
-// --- Event Listeners Setup ---
 function setupEventListeners() {
-  // Student Welcome
   continueBtn.addEventListener('click', handleWelcomeSubmit);
-
-  // Task Form Submit (Add/Edit)
   taskForm.addEventListener('submit', handleTaskFormSubmit);
   cancelEditBtn.addEventListener('click', resetTaskForm);
 
-  // Tab Navigation
   tabButtons.forEach(btn => {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
-  // Task Filters
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => setFilter(btn.dataset.filter));
   });
-
-  // Reading Mode
   readingModeBtn.addEventListener('click', toggleReadingMode);
 }
-
-// --- 1. Student Welcome Module ---
 function loadUserData() {
   const savedName = localStorage.getItem(STORAGE_KEY_USER);
   if (savedName) {
@@ -89,7 +75,6 @@ function displayWelcomeBanner(name) {
   welcomeBanner.classList.remove('hidden');
 }
 
-// --- 2 to 6. Task Management & Storage ---
 function loadTasksData() {
   const storedTasks = localStorage.getItem(STORAGE_KEY_TASKS);
   tasks = storedTasks ? JSON.parse(storedTasks) : [];
@@ -112,12 +97,12 @@ function handleTaskFormSubmit(e) {
   taskError.textContent = '';
 
   if (editingTaskId !== null) {
-    // Edit existing task
+ 
     tasks = tasks.map(task => 
       task.id === editingTaskId ? { ...task, title, subject } : task
     );
   } else {
-    // Add new task
+
     const newTask = {
       id: Date.now(),
       title,
@@ -171,8 +156,6 @@ function toggleTaskStatus(id) {
   saveTasksData();
   renderTasks();
 }
-
-// --- 7. Task Filters & Render Engine ---
 function setFilter(filterType) {
   currentFilter = filterType;
   filterButtons.forEach(btn => {
@@ -187,7 +170,7 @@ function renderTasks() {
   const filteredTasks = tasks.filter(task => {
     if (currentFilter === 'pending') return task.status === 'pending';
     if (currentFilter === 'completed') return task.status === 'completed';
-    return true; // 'all'
+    return true; 
   });
 
   if (filteredTasks.length === 0) {
@@ -224,14 +207,12 @@ function renderTasks() {
   updateParagraphCount();
 }
 
-// Helper to escape HTML and prevent XSS
 function escapeHTML(str) {
   return str.replace(/[&<>'"]/g, 
     tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
   );
 }
 
-// --- 8. Tabbed Interface ---
 function switchTab(targetTabId) {
   tabButtons.forEach(btn => {
     btn.classList.toggle('active', btn.dataset.tab === targetTabId);
@@ -243,8 +224,6 @@ function switchTab(targetTabId) {
 
   updateParagraphCount();
 }
-
-// --- 9. Study Information & Paragraph Counter ---
 function updateParagraphCount() {
   const allParagraphs = document.querySelectorAll('p');
   const count = allParagraphs.length;
@@ -252,7 +231,6 @@ function updateParagraphCount() {
   paraCountBadge.textContent = `Paragraphs: ${count}`;
   console.log(`Total Paragraphs Count on Page: ${count}`);
 
-  // Re-apply reading mode to dynamically added paragraphs if active
   allParagraphs.forEach(p => {
     if (isReadingMode) {
       p.classList.add('reading-mode');
@@ -262,7 +240,6 @@ function updateParagraphCount() {
   });
 }
 
-// --- 10. Reading Mode Module ---
 function toggleReadingMode() {
   isReadingMode = !isReadingMode;
   const allParagraphs = document.querySelectorAll('p');
